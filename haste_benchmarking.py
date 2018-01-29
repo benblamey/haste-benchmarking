@@ -9,10 +9,10 @@ import itertools
 import functools
 
 
-# In[53]:
+# In[93]:
 
 
-spamReader = csv.DictReader(open('benchmarking-simulator,2018-01-29.csv'), delimiter=',')
+spamReader = csv.DictReader(open('benchmarking-simulator,2018-01-29-b.csv'), delimiter=',')
 
 """
             'benchmarking',
@@ -28,10 +28,10 @@ rows = []
 for row in spamReader:
     rows.append(dict(row))
     
-print(rows)   
+#print(rows)   
 
 
-# In[79]:
+# In[102]:
 
 
 rows.sort(key=lambda row: row['topic'])
@@ -46,14 +46,23 @@ for (topic, group) in grouped_by_topic:
     
     #print ('total durations: ')
     total_duration = functools.reduce(lambda x, y: x + y, durations)
-    print()
     totals[topic] = total_duration
 
-print(totals)
+#print(totals)
 
+print("Running the simulator...")
 total = totals['stream_all_images']
+print('total time: ' + str(total) + 'secs')
 
+print('durations as % of total streaming time: ')
 for k,v in totals.items():
-    print(k + ' '+ str(v / total * 100) + ' %')
-    
+    if k == 'full': # exclude waiting for processing.
+        continue
+    print(k + ' '+ str(v / total * 100) + '%')
+
+print()
+print("Completion of all processing...")
+print('total processing time: ' + str(totals['full']) + ' secs')
+# Assuming single processing node
+print('total processing time per image: ' + str(totals['full']/500) + ' secs')
 

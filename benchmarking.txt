@@ -1,0 +1,12 @@
+benchmarking of the haste pipeline for paper 104:
+
+benchmarking-simulator,2018-01-29-a.csv
+- benchmarking in simulator, dir = '/mnt/ImageData/testDatasets/0'
+- 500 images
+- code directed to benblamey/haste-image-proc:latest
+- issue running it at 'full speed' its max 10images/second
+- Doesn't poll DB
+
+
+benchmarking-simulator,2018-01-29-b.csv
+- As above, but polls DB
